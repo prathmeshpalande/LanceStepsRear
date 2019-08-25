@@ -2,10 +2,10 @@ package com.lance.rear.stepcounter.model;
 
 public class NoteStepsRequest {
 
-    private String uniqueCode;
+    private Integer uniqueCode;
     private Integer steps;
 
-    public NoteStepsRequest(String uniqueCode, Integer steps) {
+    public NoteStepsRequest(Integer uniqueCode, Integer steps) {
         this.uniqueCode = uniqueCode;
         this.steps = steps;
     }
@@ -21,11 +21,11 @@ public class NoteStepsRequest {
         this.steps = steps;
     }
 
-    public String getUniqueCode() {
+    public Integer getUniqueCode() {
         return uniqueCode;
     }
 
-    public void setUniqueCode(String uniqueCode) {
+    public void setUniqueCode(Integer uniqueCode) {
         this.uniqueCode = uniqueCode;
     }
 }
