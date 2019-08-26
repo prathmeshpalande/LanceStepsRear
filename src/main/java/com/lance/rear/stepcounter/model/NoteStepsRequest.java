@@ -1,25 +1,12 @@
 package com.lance.rear.stepcounter.model;
 
+import java.util.List;
+
 public class NoteStepsRequest {
 
     private Integer uniqueCode;
-    private Integer steps;
 
-    public NoteStepsRequest(Integer uniqueCode, Integer steps) {
-        this.uniqueCode = uniqueCode;
-        this.steps = steps;
-    }
-
-    public NoteStepsRequest() {
-    }
-
-    public Integer getSteps() {
-        return steps;
-    }
-
-    public void setSteps(Integer steps) {
-        this.steps = steps;
-    }
+    private List<StepsDateModel> listStepsDate;
 
     public Integer getUniqueCode() {
         return uniqueCode;
@@ -27,5 +14,21 @@ public class NoteStepsRequest {
 
     public void setUniqueCode(Integer uniqueCode) {
         this.uniqueCode = uniqueCode;
+    }
+
+    public List<StepsDateModel> getListStepsDate() {
+        return listStepsDate;
+    }
+
+    public void setListStepsDate(List<StepsDateModel> listStepsDate) {
+        this.listStepsDate = listStepsDate;
+    }
+
+    public NoteStepsRequest() {
+    }
+
+    public NoteStepsRequest(Integer uniqueCode, List<StepsDateModel> listStepsDate) {
+        this.uniqueCode = uniqueCode;
+        this.listStepsDate = listStepsDate;
     }
 }

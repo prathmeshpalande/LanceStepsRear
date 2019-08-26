@@ -11,14 +11,17 @@ public class User {
 
     private String name;
 
+    private String sessionKey;
 
-    public User(Integer uniqueCode, String name) {
-        super();
-        this.uniqueCode = uniqueCode;
-        this.name = name;
-    }
 
     public User() {
         super();
+    }
+
+    public User(Integer uniqueCode, String name, String sessionKey) {
+        super();
+        this.uniqueCode = uniqueCode;
+        this.name = name;
+        this.sessionKey = sessionKey;
     }
 }
