@@ -12,7 +12,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public GeneralResponseObject signUp(SignUpRequest signUpRequest) {
+    public GeneralResponseObject login(SignUpRequest signUpRequest) {
 
         GeneralResponseObject generalResponseObject = GeneralResponseObject.getSuccessResponseObject();
 
@@ -20,9 +20,11 @@ public class UserService {
         try {
             userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName());
         } catch(Exception e) {
-            System.out.println(e.getMessage());
-            generalResponseObject.setResponseCode(0);
-            generalResponseObject.setResponseMessage("Some error occurred. Please contact the administrator!");
+            e.printStackTrace();
+//            System.out.println(e.getMessage());
+//            generalResponseObject.setResponseCode(0);
+//            generalResponseObject.setResponseMessage("Some error occurred. Please contact the administrator!");
+            generalResponseObject = GeneralResponseObject.getFailureResponseObject();
         }
 
         return generalResponseObject;

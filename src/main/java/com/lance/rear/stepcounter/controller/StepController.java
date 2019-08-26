@@ -4,9 +4,7 @@ import com.lance.rear.stepcounter.model.GeneralResponseObject;
 import com.lance.rear.stepcounter.model.NoteStepsRequest;
 import com.lance.rear.stepcounter.service.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class StepController {
@@ -18,6 +16,14 @@ public class StepController {
     public GeneralResponseObject noteSteps(@RequestBody NoteStepsRequest noteStepsRequest) {
 
         GeneralResponseObject generalResponseObject = stepService.noteSteps(noteStepsRequest);
+
+        return generalResponseObject;
+    }
+
+    @GetMapping("/step_history/{unique_code}")
+    public GeneralResponseObject getStepHistory(@PathVariable("unique_code") Integer uniqueCode) {
+
+        GeneralResponseObject generalResponseObject = stepService.getStepHistory(uniqueCode);
 
         return generalResponseObject;
     }

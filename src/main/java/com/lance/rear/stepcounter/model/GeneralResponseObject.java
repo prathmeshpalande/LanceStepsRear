@@ -20,6 +20,10 @@ public class GeneralResponseObject {
         return new GeneralResponseObject(1, "Success", null);
     }
 
+    public static GeneralResponseObject getFailureResponseObject() {
+        return new GeneralResponseObject(0, "Some error occurred. Please contact the administrator!", null);
+    }
+
     public Integer getResponseCode() {
         return responseCode;
     }

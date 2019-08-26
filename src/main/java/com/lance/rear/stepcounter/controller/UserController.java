@@ -14,10 +14,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/signup")
-    public GeneralResponseObject signUp(@RequestBody SignUpRequest signUpRequest) {
+    @PostMapping("/login")
+    public GeneralResponseObject login(@RequestBody SignUpRequest signUpRequest) {
 
-        GeneralResponseObject generalResponseObject = userService.signUp(signUpRequest);
+        GeneralResponseObject generalResponseObject = userService.login(signUpRequest);
 
         return generalResponseObject;
     }
