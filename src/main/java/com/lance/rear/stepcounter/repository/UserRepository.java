@@ -14,16 +14,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "insert into User (uniqueCode, name, sessionKey) values (:uniqueCode, :name, :sessionKey)", nativeQuery = true)
-    void signUp(@Param("uniqueCode") Integer uniqueCode, @Param("name") String name, @Param("sessionKey") String sessionKey);
+    @Query(value = "insert into User (uniqueCode, name, sessionKey, signInCount) values (:uniqueCode, :name, :sessionKey, :signInCount)", nativeQuery = true)
+    void signUp(@Param("uniqueCode") Integer uniqueCode, @Param("name") String name, @Param("sessionKey") String sessionKey, @Param("signInCount") Integer signInCount);
 
-    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, sessionKey) from User where uniqueCode = :uniqueCode")
+    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, sessionKey, signInCount) from User where uniqueCode = :uniqueCode")
     User checkIfUserExists(@Param("uniqueCode") Integer uniqueCode);
+
+    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, sessionKey, signInCount) from User where sessionKey = :sessionKey")
+    User getSessionUser(@Param("sessionKey") String sessionKey);
+
+    @Query(value = "select signInCount from User where uniqueCode = :uniqueCode")
+    Integer getSignInCount(@Param("uniqueCode") Integer uniqueCode);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update User set sessionKey = :sessionKey, signInCount = :signInCount where uniqueCode = :uniqueCode", nativeQuery = true)
+    void updateSession(@Param("uniqueCode") Integer uniqueCode, @Param("sessionKey") String sessionKey, @Param("signInCount") Integer signInCount);
 
     @Modifying
     @Transactional
     @Query(value = "insert into StepHistory (stepId, uniqueCode, steps, timeInMillis) values (NULL, :uniqueCode, :steps, :timeInMillis)", nativeQuery = true)
-    int noteSteps(@Param("uniqueCode") Integer uniqueCode, @Param("steps") Integer steps, @Param("timeInMillis") Long timeInMillis);
+    void noteSteps(@Param("uniqueCode") Integer uniqueCode, @Param("steps") Integer steps, @Param("timeInMillis") Long timeInMillis);
 
     @Query(value = "select new com.lance.rear.stepcounter.model.StepsDateModel(steps, timeInMillis) from StepHistory where uniqueCode = :uniqueCode")
     List<StepsDateModel> getStepHistory(@Param("uniqueCode") Integer uniqueCode);
