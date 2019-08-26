@@ -21,9 +21,6 @@ public class UserService {
             userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName());
         } catch(Exception e) {
             e.printStackTrace();
-//            System.out.println(e.getMessage());
-//            generalResponseObject.setResponseCode(0);
-//            generalResponseObject.setResponseMessage("Some error occurred. Please contact the administrator!");
             generalResponseObject = GeneralResponseObject.getFailureResponseObject();
         }
 
