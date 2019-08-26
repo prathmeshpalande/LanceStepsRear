@@ -25,7 +25,11 @@ public class UserService {
         try {
             User user = userRepository.checkIfUserExists(signUpRequest.getUniqueCode());
             if(user == null)
-                userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName(), sessionKey);
+                userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName(), sessionKey, 1);
+            else {
+                Integer signInCount = userRepository.getSignInCount(signUpRequest.getUniqueCode());
+                userRepository.updateSession(signUpRequest.getUniqueCode(), sessionKey, ((signInCount != null) ? signInCount : 0) + 1);
+            }
             responseData = new HashMap<>();
             responseData.put("sessionKey", sessionKey);
             generalResponseObject.setResponseData(responseData);
