@@ -18,14 +18,8 @@ public class StepService {
 
     public GeneralResponseObject noteSteps(NoteStepsRequest noteStepsRequest) {
         GeneralResponseObject generalResponseObject = GeneralResponseObject.getSuccessResponseObject();
-
-//        User sessionUser = userRepository.getSessionUser(noteStepsRequest.getUniqueCode());
-//        Boolean isSessionValid = (sessionUser != null) ? true : false;
-//        if(isSessionValid)
             for(StepsDateModel stepsDate : noteStepsRequest.getListStepsDate())
                 userRepository.noteSteps(noteStepsRequest.getUniqueCode(), stepsDate.getSteps(), stepsDate.getTimeInMillis());
-//        else
-//            generalResponseObject = GeneralResponseObject.getFailureResponseObject();
         return generalResponseObject;
     }
 

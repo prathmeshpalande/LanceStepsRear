@@ -20,15 +20,10 @@ public class UserService {
     public GeneralResponseObject login(SignUpRequest signUpRequest) {
 
         GeneralResponseObject generalResponseObject = GeneralResponseObject.getSuccessResponseObject();
-//        Map<Object, Object> responseData = null;
-//        String sessionKey = MD5Util.getMd5("" + signUpRequest.getUniqueCode() + System.currentTimeMillis());
         try {
             User user = userRepository.checkIfUserExists(signUpRequest.getUniqueCode());
             if(user == null) {
                 userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName(), 1);
-//                responseData = new HashMap<>();
-//                responseData.put("sessionKey", sessionKey);
-//                generalResponseObject.setResponseData(responseData);
             }
             else {
                 Integer signInCount = userRepository.getSignInCount(signUpRequest.getUniqueCode());

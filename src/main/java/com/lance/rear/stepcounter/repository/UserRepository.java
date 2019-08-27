@@ -20,9 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, signInCount) from User where uniqueCode = :uniqueCode")
     User checkIfUserExists(@Param("uniqueCode") Integer uniqueCode);
 
-//    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, signInCount) from User where sessionKey = :sessionKey")
-//    User getSessionUser(@Param("sessionKey") String sessionKey);
-
     @Query(value = "select signInCount from User where uniqueCode = :uniqueCode")
     Integer getSignInCount(@Param("uniqueCode") Integer uniqueCode);
 
