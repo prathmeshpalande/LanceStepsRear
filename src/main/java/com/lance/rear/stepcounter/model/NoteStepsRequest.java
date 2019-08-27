@@ -4,16 +4,16 @@ import java.util.List;
 
 public class NoteStepsRequest {
 
-    private String sessionKey;
+    private Integer uniqueCode;
 
     private List<StepsDateModel> listStepsDate;
 
-    public String getSessionKey() {
-        return sessionKey;
+    public Integer getUniqueCode() {
+        return uniqueCode;
     }
 
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
+    public void setUniqueCode(Integer uniqueCode) {
+        this.uniqueCode = uniqueCode;
     }
 
     public List<StepsDateModel> getListStepsDate() {
@@ -27,8 +27,8 @@ public class NoteStepsRequest {
     public NoteStepsRequest() {
     }
 
-    public NoteStepsRequest(String sessionKey, List<StepsDateModel> listStepsDate) {
-        this.sessionKey = sessionKey;
+    public NoteStepsRequest(Integer uniqueCode, List<StepsDateModel> listStepsDate) {
+        this.uniqueCode = uniqueCode;
         this.listStepsDate = listStepsDate;
     }
 }
