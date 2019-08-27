@@ -11,8 +11,6 @@ public class User {
 
     private String name;
 
-    private String sessionKey;
-
     private Integer signInCount;
 
 
@@ -32,14 +30,6 @@ public class User {
         this.name = name;
     }
 
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
     public Integer getSignInCount() {
         return signInCount;
     }
@@ -52,11 +42,10 @@ public class User {
         super();
     }
 
-    public User(Integer uniqueCode, String name, String sessionKey, Integer signInCount) {
+    public User(Integer uniqueCode, String name, Integer signInCount) {
         super();
         this.uniqueCode = uniqueCode;
         this.name = name;
-        this.sessionKey = sessionKey;
         this.signInCount = signInCount;
     }
 }

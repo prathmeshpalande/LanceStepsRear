@@ -14,22 +14,22 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "insert into User (uniqueCode, name, sessionKey, signInCount) values (:uniqueCode, :name, :sessionKey, :signInCount)", nativeQuery = true)
-    void signUp(@Param("uniqueCode") Integer uniqueCode, @Param("name") String name, @Param("sessionKey") String sessionKey, @Param("signInCount") Integer signInCount);
+    @Query(value = "insert into User (uniqueCode, name, signInCount) values (:uniqueCode, :name, :signInCount)", nativeQuery = true)
+    void signUp(@Param("uniqueCode") Integer uniqueCode, @Param("name") String name, @Param("signInCount") Integer signInCount);
 
-    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, sessionKey, signInCount) from User where uniqueCode = :uniqueCode")
+    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, signInCount) from User where uniqueCode = :uniqueCode")
     User checkIfUserExists(@Param("uniqueCode") Integer uniqueCode);
 
-    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, sessionKey, signInCount) from User where sessionKey = :sessionKey")
-    User getSessionUser(@Param("sessionKey") String sessionKey);
+//    @Query(value = "select new com.lance.rear.stepcounter.model.User(uniqueCode, name, signInCount) from User where sessionKey = :sessionKey")
+//    User getSessionUser(@Param("sessionKey") String sessionKey);
 
     @Query(value = "select signInCount from User where uniqueCode = :uniqueCode")
     Integer getSignInCount(@Param("uniqueCode") Integer uniqueCode);
 
     @Modifying
     @Transactional
-    @Query(value = "update User set sessionKey = :sessionKey, signInCount = :signInCount where uniqueCode = :uniqueCode", nativeQuery = true)
-    void updateSession(@Param("uniqueCode") Integer uniqueCode, @Param("sessionKey") String sessionKey, @Param("signInCount") Integer signInCount);
+    @Query(value = "update User set signInCount = :signInCount where uniqueCode = :uniqueCode", nativeQuery = true)
+    void updateSignInCount(@Param("uniqueCode") Integer uniqueCode, @Param("signInCount") Integer signInCount);
 
     @Modifying
     @Transactional

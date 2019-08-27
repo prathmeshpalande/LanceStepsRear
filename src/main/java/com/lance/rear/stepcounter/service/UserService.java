@@ -20,19 +20,22 @@ public class UserService {
     public GeneralResponseObject login(SignUpRequest signUpRequest) {
 
         GeneralResponseObject generalResponseObject = GeneralResponseObject.getSuccessResponseObject();
-        Map<Object, Object> responseData = null;
-        String sessionKey = MD5Util.getMd5("" + signUpRequest.getUniqueCode() + System.currentTimeMillis());
+//        Map<Object, Object> responseData = null;
+//        String sessionKey = MD5Util.getMd5("" + signUpRequest.getUniqueCode() + System.currentTimeMillis());
         try {
             User user = userRepository.checkIfUserExists(signUpRequest.getUniqueCode());
-            if(user == null)
-                userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName(), sessionKey, 1);
+            if(user == null) {
+                userRepository.signUp(signUpRequest.getUniqueCode(), signUpRequest.getName(), 1);
+//                responseData = new HashMap<>();
+//                responseData.put("sessionKey", sessionKey);
+//                generalResponseObject.setResponseData(responseData);
+            }
             else {
                 Integer signInCount = userRepository.getSignInCount(signUpRequest.getUniqueCode());
-                userRepository.updateSession(signUpRequest.getUniqueCode(), sessionKey, ((signInCount != null) ? signInCount : 0) + 1);
+                userRepository.updateSignInCount(signUpRequest.getUniqueCode(), ((signInCount != null) ? signInCount : 0) + 1);
+                generalResponseObject = GeneralResponseObject.getFailureResponseObject();
             }
-            responseData = new HashMap<>();
-            responseData.put("sessionKey", sessionKey);
-            generalResponseObject.setResponseData(responseData);
+
         } catch(Exception e) {
             e.printStackTrace();
             generalResponseObject = GeneralResponseObject.getFailureResponseObject();
