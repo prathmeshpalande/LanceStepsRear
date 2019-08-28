@@ -18,8 +18,11 @@ public class StepService {
 
     public GeneralResponseObject noteSteps(NoteStepsRequest noteStepsRequest) {
         GeneralResponseObject generalResponseObject = GeneralResponseObject.getSuccessResponseObject();
-            for(StepsDateModel stepsDate : noteStepsRequest.getListStepsDate())
-                userRepository.noteSteps(noteStepsRequest.getUniqueCode(), stepsDate.getSteps(), stepsDate.getTimeInMillis());
+            for(StepsDateModel stepsDate : noteStepsRequest.getListStepsDate()) {
+                Long timeInMillis = userRepository.areStepsAlreadyNoted(noteStepsRequest.getUniqueCode(), stepsDate.getTimeInMillis());
+                if(timeInMillis == null)
+                    userRepository.noteSteps(noteStepsRequest.getUniqueCode(), stepsDate.getSteps(), stepsDate.getTimeInMillis());
+            }
         return generalResponseObject;
     }
 

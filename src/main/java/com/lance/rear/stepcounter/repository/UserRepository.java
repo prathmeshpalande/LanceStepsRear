@@ -33,6 +33,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "insert into StepHistory (stepId, uniqueCode, steps, timeInMillis) values (NULL, :uniqueCode, :steps, :timeInMillis)", nativeQuery = true)
     void noteSteps(@Param("uniqueCode") Integer uniqueCode, @Param("steps") Integer steps, @Param("timeInMillis") Long timeInMillis);
 
+    @Query(value = "select timeInMillis from StepHistory where uniqueCode = :uniqueCode and timeInMillis = :timeInMillis")
+    Long areStepsAlreadyNoted(@Param("uniqueCode") Integer uniqueCode, @Param("timeInMillis") Long timeInMillis);
+
     @Query(value = "select new com.lance.rear.stepcounter.model.StepsDateModel(steps, timeInMillis) from StepHistory where uniqueCode = :uniqueCode")
     List<StepsDateModel> getStepHistory(@Param("uniqueCode") Integer uniqueCode);
 
