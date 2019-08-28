@@ -39,4 +39,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select new com.lance.rear.stepcounter.model.StepsDateModel(steps, timeInMillis) from StepHistory where uniqueCode = :uniqueCode")
     List<StepsDateModel> getStepHistory(@Param("uniqueCode") Integer uniqueCode);
 
+    @Modifying
+    @Transactional
+    @Query(value = "delete from User where uniqueCode = :uniqueCode", nativeQuery = true)
+    void invalidateLogin(@Param("uniqueCode") Integer uniqueCode);
+
 }

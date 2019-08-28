@@ -4,9 +4,7 @@ import com.lance.rear.stepcounter.model.GeneralResponseObject;
 import com.lance.rear.stepcounter.model.SignUpRequest;
 import com.lance.rear.stepcounter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -20,5 +18,10 @@ public class UserController {
         GeneralResponseObject generalResponseObject = userService.login(signUpRequest);
 
         return generalResponseObject;
+    }
+
+    @GetMapping("invalidate_login/{uniqueCode}")
+    public void invalidatelogin(@PathVariable("uniqueCode") Integer uniqueCode) {
+        userService.invalidateLogin(uniqueCode);
     }
 }

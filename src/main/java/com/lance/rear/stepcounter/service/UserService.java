@@ -39,4 +39,8 @@ public class UserService {
 
         return generalResponseObject;
     }
+
+    public void invalidateLogin(Integer uniqueCode) {
+        userRepository.invalidateLogin(uniqueCode);
+    }
 }
