@@ -27,4 +27,11 @@ public class StepController {
 
         return generalResponseObject;
     }
+
+    @GetMapping("report")
+    public String getStepReport() {
+        String stepReport = "uniqueCode, steps, timeInMillis\n" + stepService.getStepReport();
+
+        return stepReport;
+    }
 }

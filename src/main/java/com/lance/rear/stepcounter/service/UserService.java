@@ -29,6 +29,7 @@ public class UserService {
                 Integer signInCount = userRepository.getSignInCount(signUpRequest.getUniqueCode());
                 userRepository.updateSignInCount(signUpRequest.getUniqueCode(), ((signInCount != null) ? signInCount : 0) + 1);
                 generalResponseObject = GeneralResponseObject.getFailureResponseObject();
+                generalResponseObject.setResponseMessage("Duplicate Login Detected! Please contact the administrators for further information.");
             }
 
         } catch(Exception e) {
