@@ -3,16 +3,11 @@ package com.lance.rear.stepcounter.service;
 import com.lance.rear.stepcounter.model.GeneralResponseObject;
 import com.lance.rear.stepcounter.model.NoteStepsRequest;
 import com.lance.rear.stepcounter.model.StepsDateModel;
-import com.lance.rear.stepcounter.model.User;
 import com.lance.rear.stepcounter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,30 +49,7 @@ public class StepService {
 
     }
 
-    public String getStepReport() {
-        StringBuffer reportBuffer = new StringBuffer();
-        try {
-            List<String> reportFiles = getReportFiles(".");
-            for (String file : reportFiles) {
-                String text = new String(Files.readAllBytes(Paths.get(file)), StandardCharsets.UTF_8);
-                reportBuffer.append(text + "\n");
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        return reportBuffer.toString();
-    }
 
-    List<String> getReportFiles(String directory) {
-        List<String> textFiles = new ArrayList<String>();
-        File dir = new File(directory);
-        for (File file : dir.listFiles()) {
-            if (file.getName().toLowerCase().endsWith((".csv"))) {
-                textFiles.add(file.getName());
-            }
-        }
-        return textFiles;
-    }
+
 }
