@@ -33,7 +33,7 @@ public class ReportController {
         // Function call
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd_MM_YYYY");
         String date = formatter.format(dt);
-        String fileName = "report_" + date + "_" + reportType + ".csv";
+        String fileName = "report_" + reportType + "_" + date + ".csv";
         try {
             PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
             printWriter.println(stepReport);
