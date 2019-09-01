@@ -1,5 +1,7 @@
 package com.lance.rear.stepcounter.service;
 
+import com.lance.rear.stepcounter.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -14,7 +16,10 @@ import java.util.Map;
 @Service
 public class ReportService {
 
-    public String getReport(String reportType) { //reportType = users or steps
+    @Autowired
+    UserRepository userRepository;
+
+    public String getReport(String reportType, Long startDate, Long endDate) { //reportType = users or steps
         StringBuffer reportBuffer = new StringBuffer();
         try {
             List<String> reportFiles = getReportFiles(".", reportType);
@@ -32,8 +37,8 @@ public class ReportService {
                         String[] lineSplit = line.split(",");
                         Long timeInMillisLine = Long.parseLong(lineSplit[2]);
                         Integer stepsLine = Integer.parseInt(lineSplit[1]);
-
-                        timeStepsMap.put(timeInMillisLine, stepsLine);
+                        if(timeInMillisLine >= startDate && timeInMillisLine <= endDate)
+                            timeStepsMap.put(timeInMillisLine, stepsLine);
                     }
                     Long totalSteps = 0L;
                     for(Map.Entry<Long, Integer> timeSteps : timeStepsMap.entrySet()) {
@@ -65,4 +70,24 @@ public class ReportService {
         return textFiles;
     }
 
+    public Boolean clearDB() {
+        try {
+            userRepository.clearUserTable();
+            userRepository.clearStepHistoryTable();
+            List<String> reportFilesUsers = getReportFiles(".", "users");
+            List<String> reportFilesSteps = getReportFiles(".", "steps");
+            for(String reportFile : reportFilesUsers) {
+                File deletionCandidate = new File(reportFile);
+                deletionCandidate.delete();
+            }
+            for(String reportFile : reportFilesSteps) {
+                File deletionCandidate = new File(reportFile);
+                deletionCandidate.delete();
+            }
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

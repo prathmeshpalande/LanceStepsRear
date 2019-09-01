@@ -44,4 +44,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "delete from User where uniqueCode = :uniqueCode", nativeQuery = true)
     void invalidateLogin(@Param("uniqueCode") Integer uniqueCode);
 
+    @Modifying
+    @Transactional
+    @Query(value = "delete from User", nativeQuery = true)
+    void clearUserTable();
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from StepHistory", nativeQuery = true)
+    void clearStepHistoryTable();
 }

@@ -21,7 +21,15 @@ public class UserController {
     }
 
     @GetMapping("invalidate_login/{uniqueCode}")
-    public void invalidatelogin(@PathVariable("uniqueCode") Integer uniqueCode) {
-        userService.invalidateLogin(uniqueCode);
+    public Boolean invalidatelogin(@PathVariable("uniqueCode") Integer uniqueCode) {
+        try {
+            userService.invalidateLogin(uniqueCode);
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
     }
 }

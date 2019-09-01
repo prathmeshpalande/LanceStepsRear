@@ -24,9 +24,9 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping(value = "report/{reportType}", produces = "text/csv")
-    public ResponseEntity getReport(@PathVariable("reportType") String reportType) {
-        String stepReport = reportService.getReport(reportType);
+    @GetMapping(value = "report/{reportType}/{startDate}/{endDate}", produces = "text/csv")
+    public ResponseEntity getReport(@PathVariable("reportType") String reportType, @PathVariable("startDate") Long startDate, @PathVariable("endDate") Long endDate) {
+        String stepReport = reportService.getReport(reportType, startDate, endDate);
 
         // Parses the date
         LocalDate dt = LocalDate.now();
@@ -50,5 +50,17 @@ public class ReportController {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to generate report: " + "report_", e);
         }
+    }
+
+    @GetMapping("/clear_db")
+    public Boolean clearDB() {
+        Boolean resultClearDB;
+        try {
+            resultClearDB = reportService.clearDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultClearDB = false;
+        }
+        return resultClearDB;
     }
 }
